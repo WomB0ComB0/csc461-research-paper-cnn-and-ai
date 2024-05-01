@@ -1,0 +1,1 @@
+requiRements::install(path_to_requirements="./requiments.txt")
