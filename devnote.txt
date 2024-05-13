@@ -1,0 +1,13 @@
+find ./bin -type f -exec fromdos {} +
+
+*.txt text eol=lf
+
+# For ./bin/start/scripts/requiments.txt
+# add a "#" for every package you don't want installed or just remove the package name
+
+# _____________________________________________
+mkdir ~/R
+chmod 755 ~/R
+
+install.packages("requiRements", lib = "~/R")
+# _____________________________________________

@@ -1,4 +1,3 @@
-# add a "#" for every package you don't want installed or just remove the package name
 ggplot2
 ggraph
 tidyr

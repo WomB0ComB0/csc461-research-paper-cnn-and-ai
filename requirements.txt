@@ -16,7 +16,6 @@ plotly
 bokeh
 statsmodels
 gym
-causalml
 xgboost
 lightgbm  
 catboost

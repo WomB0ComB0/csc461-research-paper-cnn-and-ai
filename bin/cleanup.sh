@@ -17,27 +17,43 @@ notebooks_misc_dir="out/notebooks"
 
 # Move non-image files to the respective output directories
 # Move PDF files to scripts_image_dir
-mv "$scripts_dir"/*.pdf "$scripts_image_dir" 2>/dev/null
+mv "$scripts_dir"/*.pdf "$scripts_image_dir" 2>/dev/null || true
 
 # Move Python output files to python_image_dir
-mv "$python_dir"/*.csv "$python_image_dir" 2>/dev/null
-mv "$python_dir"/*.txt "$python_image_dir" 2>/dev/null
+mv "$python_dir"/*.csv "$python_image_dir" 2>/dev/null || true
+mv "$python_dir"/*.txt "$python_image_dir" 2>/dev/null || true
 
 # Move notebooks output files to notebooks_image_dir
-mv "$notebooks_dir"/*.html "$notebooks_image_dir" 2>/dev/null
-mv "$notebooks_dir"/*.pdf "$notebooks_image_dir" 2>/dev/null
+mv "$notebooks_dir"/*.html "$notebooks_image_dir" 2>/dev/null || true
+mv "$notebooks_dir"/*.pdf "$notebooks_image_dir" 2>/dev/null || true
 
-for file in "$scripts_dir"/* "$python_dir"/* "$notebooks_dir"/*; do
+# Move miscellaneous files to the respective directories based on file extensions
+for file in "$scripts_dir"/*; do
     if [ -f "$file" ]; then
         extension="${file##*.}"
         case "$extension" in
             jpg|jpeg|png|gif) continue ;;
-            *) mkdir -p "out/${extension}" ;;
+            *) mkdir -p "$scripts_misc_dir" && mv "$file" "$scripts_misc_dir" ;;
         esac
     fi
 done
 
-# Move miscellaneous files to the respective directories based on file extensions
-mv "$scripts_dir"/* "out/scripts" 2>/dev/null
-mv "$python_dir"/* "out/python" 2>/dev/null
-mv "$notebooks_dir"/* "out/notebooks" 2>/dev/null
+for file in "$python_dir"/*; do
+    if [ -f "$file" ]; then
+        extension="${file##*.}"
+        case "$extension" in
+            jpg|jpeg|png|gif) continue ;;
+            *) mkdir -p "$python_misc_dir" && mv "$file" "$python_misc_dir" ;;
+        esac
+    fi
+done
+
+for file in "$notebooks_dir"/*; do
+    if [ -f "$file" ]; then
+        extension="${file##*.}"
+        case "$extension" in
+            jpg|jpeg|png|gif) continue ;;
+            *) mkdir -p "$notebooks_misc_dir" && mv "$file" "$notebooks_misc_dir" ;;
+        esac
+    fi
+done
