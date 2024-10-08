@@ -1,3 +1,5 @@
+find ./bin -type f -name "*.sh" -exec chmod +x {} \;
+
 alias run_all_py="./bin/all_py.sh"
 alias run_all_r="./bin/all_r.sh"
 alias run_all_ipynb="./bin/all_notebooks.sh"

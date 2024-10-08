@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 
 # Create a simple CNN model
 def create_cnn_model(input_shape=(28, 28, 1), num_classes=10):
+    """
+        
+    """
     model = models.Sequential(
         [
             layers.Conv2D(32, (3, 3), activation="relu", input_shape=input_shape),

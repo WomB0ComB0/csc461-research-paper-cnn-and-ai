@@ -21,9 +21,7 @@ case "$(uname)" in
             echo "sudo command not found"
             exit 1
         fi
-        echo "Configuration is not properly set up for Linux platform, depending on your R installation configuration, you may need to install the required packages manually."
-        echo "Something like this: mkdir ~/R \ chmod 755 ~/R"
-        echo "Rscript -e 'install.packages(\"requiRements\", lib = \"~/R\")'"
+        echo "GNU/Linux platform detected."
         ;;
     MINGW32_NT*|MINGW64_NT*)
         echo "R installation scripts for Windows platform"
@@ -39,7 +37,15 @@ case "$(uname)" in
 esac
 
 if [ -f "$REQUIREMENTS_FILE" ]; then
-    Rscript install.r || { echo "Failed to run R installation script"; exit 1; }
+    if [ ! -d "~/R" ]; then
+        echo "Creating R library directory"
+        mkdir -p ~/R
+        chmod 755 ~/R
+    fi
+
+    echo "Installing R packages into ~/R library..."
+    
+    Rscript -e 'install.packages("requiRements", lib = "~/R")' || { echo "Failed to install R packages"; exit 1; }
 else
     echo "Requirements file $REQUIREMENTS_FILE not found."
     exit 1

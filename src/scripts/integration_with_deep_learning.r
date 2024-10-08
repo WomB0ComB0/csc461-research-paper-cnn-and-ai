@@ -1,4 +1,3 @@
-# Load required libraries
 library(keras)
 
 # Create mock data

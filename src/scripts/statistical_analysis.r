@@ -1,4 +1,3 @@
-# Load required libraries
 library(stats)
 
 # Create mock data
